@@ -1,0 +1,78 @@
+# =================================================================
+# Global Rules (Apply to all sub-folders)
+# =================================================================
+
+# IDE & OS files
+.idea/
+.vscode/
+!.vscode/extensions.json # Allow this specific vscode file
+.DS_Store
+*.sw?
+
+# Log files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment variables
+# IMPORTANT: This will ignore all .env files in all subdirectories
+**/.env
+**/.env.*.local
+**/.env.local
+
+# Build artifacts & Caches
+build/
+dist/
+dist-ssr/
+.cache/
+.next/
+out/
+coverage/
+.swc/
+*.tsbuildinfo
+
+# =================================================================
+# Backend Specific
+# =================================================================
+
+backend/uploads/
+backend/medusa-db.sql
+backend/.medusa/
+
+# Yarn specific (from backend)
+backend/.yarn/*
+!backend/.yarn/patches
+!backend/.yarn/plugins
+!backend/.yarn/releases
+!backend/.yarn/sdks
+!backend/.yarn/versions
+
+# =================================================================
+# Storefront Specific
+# =================================================================
+
+# Vercel
+storefront/.vercel/
+
+# Playwright test reports (from storefront)
+storefront/test-results/
+storefront/playwright-report/
+storefront/blob-report/
+storefront/playwright/.cache/
+storefront/playwright/.auth/
+
+
+# =================================================================
+# Admin Specific
+# =================================================================
+
+admin/public/

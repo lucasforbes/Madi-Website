@@ -1,0 +1,17 @@
+{
+  "name": "madi-website",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm:dev:backend\" \"npm:dev:storefront\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:storefront": "cd storefront && npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

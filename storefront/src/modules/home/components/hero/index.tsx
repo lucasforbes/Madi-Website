@@ -1,33 +1,36 @@
-import { Github } from "@medusajs/icons"
 import { Button, Heading } from "@medusajs/ui"
+import Image from "next/image"
+import LocalizedClientLink from "@modules/common/components/localized-client-link" // Import the Link component
 
 const Hero = () => {
   return (
-    <div className="h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
-      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center small:p-32 gap-6">
-        <span>
-          <Heading
-            level="h1"
-            className="text-3xl leading-10 text-ui-fg-base font-normal"
-          >
-            Ecommerce Starter Template
-          </Heading>
-          <Heading
-            level="h2"
-            className="text-3xl leading-10 text-ui-fg-subtle font-normal"
-          >
-            Powered by Medusa and Next.js
-          </Heading>
-        </span>
-        <a
-          href="https://github.com/medusajs/nextjs-starter-medusa"
-          target="_blank"
+    <div className="h-[100vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
+      <Image
+        src="/hero-background.png"
+        alt="Hero Image showcasing Madi's creations"
+        layout="fill"
+        objectFit="cover"
+        quality={90}
+        priority={true}
+        draggable="false"
+        className="absolute inset-0 z-0"
+      />
+
+      {/* This section is updated */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center small:p-32 gap-6">
+        <Heading
+          level="h1"
+          className="text-4xl leading-10 text-white font-bold"
+          // className="text-4xl leading-10 text-ui-fg-base font-bold"
         >
+          Look clothes and shit
+        </Heading>
+
+        <LocalizedClientLink href="/store">
           <Button variant="secondary">
-            View on GitHub
-            <Github />
+            Shop Now
           </Button>
-        </a>
+        </LocalizedClientLink>
       </div>
     </div>
   )

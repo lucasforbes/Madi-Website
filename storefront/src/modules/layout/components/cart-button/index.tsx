@@ -1,6 +1,7 @@
 import { retrieveCart } from "@lib/data/cart"
-import CartDropdown from "../cart-dropdown"
+import CartDropdown from "@modules/layout/components/cart-dropdown"
 
+// This is a Server Component because it's async. This is correct.
 export default async function CartButton() {
   const cart = await retrieveCart().catch(() => null)
 

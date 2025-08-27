@@ -1,7 +1,7 @@
 "use client"
 
 import { Badge, Heading, Input, Label, Text } from "@medusajs/ui"
-import React from "react";
+import React from "react"
 
 import { applyPromotions } from "@lib/data/cart"
 import { convertToLocale } from "@lib/util/money"
@@ -68,10 +68,6 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
             >
               Add Promotion Code(s)
             </button>
-
-            {/* <Tooltip content="You can add multiple promotion codes">
-              <InformationCircleSolid color="var(--fg-muted)" />
-            </Tooltip> */}
           </Label>
 
           {isOpen && (
@@ -132,7 +128,8 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                               "percentage"
                                 ? `${promotion.application_method.value}%`
                                 : convertToLocale({
-                                    amount: promotion.application_method.value,
+                                    // --- THIS IS THE FIX ---
+                                    amount: parseInt(promotion.application_method.value),
                                     currency_code:
                                       promotion.application_method
                                         .currency_code,
@@ -140,11 +137,6 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                             </>
                           )}
                         )
-                        {/* {promotion.is_automatic && (
-                          <Tooltip content="This promotion is automatically applied">
-                            <InformationCircleSolid className="inline text-zinc-400" />
-                          </Tooltip>
-                        )} */}
                       </span>
                     </Text>
                     {!promotion.is_automatic && (

@@ -21,8 +21,8 @@ type ShippingProps = {
   availableShippingMethods: HttpTypes.StoreCartShippingOption[] | null
 }
 
-// --- THIS IS THE FIX ---
-function formatAddress(address: HttpTypes.AddressPayload | undefined) {
+// --- THIS IS THE FINAL FIX ---
+function formatAddress(address: HttpTypes.Address | undefined) {
   if (!address) {
     return ""
   }
@@ -99,7 +99,11 @@ const Shipping: React.FC<ShippingProps> = ({
           setCalculatedPricesMap(pricesMap)
           setIsLoadingPrices(false)
         })
+      } else {
+        setIsLoadingPrices(false)
       }
+    } else {
+        setIsLoadingPrices(false)
     }
 
     if (_pickupMethods?.find((m) => m.id === shippingMethodId)) {

@@ -6,6 +6,8 @@ import { calculatePriceForShippingOption } from "@lib/data/fulfillment"
 import { convertToLocale } from "@lib/util/money"
 import { CheckCircleSolid, Loader } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
+// --- ADD THIS IMPORT ---
+import { Address } from "@medusajs/medusa" 
 import { Button, Heading, Text, clx } from "@medusajs/ui"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import Divider from "@modules/common/components/divider"
@@ -22,7 +24,7 @@ type ShippingProps = {
 }
 
 // --- THIS IS THE FINAL FIX ---
-function formatAddress(address: HttpTypes.Address | undefined) {
+function formatAddress(address: Address | undefined) {
   if (!address) {
     return ""
   }
@@ -107,7 +109,7 @@ const Shipping: React.FC<ShippingProps> = ({
     }
 
     if (_pickupMethods?.find((m) => m.id === shippingMethodId)) {
-      setShowPickupOptions(PICKUP_OPTION_ON)
+      setShowPickupOptions(PICKUP_OPTION_.ON)
     }
   }, [availableShippingMethods])
 

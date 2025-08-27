@@ -1,6 +1,6 @@
 "use client"
 
-import { RadioGroup, Radio } from "@headlessui/react"
+import { Radio, RadioGroup } from "@headlessui/react"
 import { setShippingMethod } from "@lib/data/cart"
 import { calculatePriceForShippingOption } from "@lib/data/fulfillment"
 import { convertToLocale } from "@lib/util/money"
@@ -21,7 +21,8 @@ type ShippingProps = {
   availableShippingMethods: HttpTypes.StoreCartShippingOption[] | null
 }
 
-function formatAddress(address) {
+// --- THIS IS THE FIX ---
+function formatAddress(address: HttpTypes.StoreAddress | undefined) {
   if (!address) {
     return ""
   }

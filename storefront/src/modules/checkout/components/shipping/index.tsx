@@ -22,7 +22,7 @@ type ShippingProps = {
 }
 
 // --- THIS IS THE FIX ---
-function formatAddress(address: HttpTypes.StoreAddress | undefined) {
+function formatAddress(address: HttpTypes.AddressPayload | undefined) {
   if (!address) {
     return ""
   }

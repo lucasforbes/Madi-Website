@@ -9,13 +9,14 @@ import CartMismatchBanner from "@modules/layout/components/cart-mismatch-banner"
 import Footer from "@modules/layout/templates/footer"
 import Nav from "@modules/layout/templates/nav"
 import FreeShippingPriceNudge from "@modules/shipping/components/free-shipping-price-nudge"
+// --- Add this import ---
+import CartButton from "@modules/layout/components/cart-button"
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
 }
 
 export default async function PageLayout(props: { children: React.ReactNode }) {
-  // ✅ Server-side data fetching
   const customer = await retrieveCustomer()
   const cart = await retrieveCart()
 
@@ -25,7 +26,6 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
     shippingOptions = shipping_options
   }
 
-  // Regions fetched on the server, then passed to Nav
   const regionsRes = await listRegions()
   const regions: StoreRegion[] = Array.isArray(regionsRes)
     ? regionsRes
@@ -33,7 +33,10 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
 
   return (
     <>
-      <Nav regions={regions} />
+      {/* --- Pass CartButton as a child to Nav --- */}
+      <Nav regions={regions}>
+        <CartButton cart={cart} />
+      </Nav>
 
       {customer && cart && (
         <CartMismatchBanner customer={customer} cart={cart} />

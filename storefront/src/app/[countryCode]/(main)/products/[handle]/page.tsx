@@ -87,7 +87,6 @@ export default async function ProductPage({ params }: Props) {
     notFound()
   }
 
-  // --- REPLACE listProducts WITH getProductByHandle ---
   const { product: pricedProduct } = await getProductByHandle(
     params.handle
   ).catch(() => {

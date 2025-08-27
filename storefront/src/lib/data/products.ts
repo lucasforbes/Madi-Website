@@ -28,7 +28,7 @@ export const listProducts = async ({
 
   const limit = queryParams?.limit || 12
   const _pageParam = Math.max(pageParam, 1)
-  const offset = (_pageParam === 1) ? 0 : (_pageParam - 1) * limit;
+  const offset = _pageParam === 1 ? 0 : (_pageParam - 1) * limit
 
   let region: HttpTypes.StoreRegion | undefined | null
 
@@ -132,5 +132,42 @@ export const listProductsWithSort = async ({
     },
     nextPage,
     queryParams,
+  }
+}
+
+// --- ADD THIS ENTIRE FUNCTION ---
+export const getProductByHandle = async (
+  handle: string
+): Promise<{ product: HttpTypes.StoreProduct }> => {
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  const next = {
+    ...(await getCacheOptions("products")),
+  }
+
+  const { products } = await sdk.client
+    .fetch<{ products: HttpTypes.StoreProduct[] }>(`/store/products`, {
+      method: "GET",
+      query: {
+        handle: handle,
+        fields:
+          "*variants.calculated_price,+variants.inventory_quantity,+metadata,+tags",
+      },
+      headers,
+      next,
+      cache: "force-cache",
+    })
+    .then((data) => data)
+
+  const product = products?.[0]
+
+  if (!product) {
+    throw new Error(`Product with handle ${handle} not found`)
+  }
+
+  return {
+    product,
   }
 }

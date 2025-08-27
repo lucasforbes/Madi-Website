@@ -15,7 +15,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
 }
 
-// --- Correct the type here from React.Node to React.ReactNode ---
 export default async function PageLayout(props: { children: React.ReactNode }) {
   const customer = await retrieveCustomer()
   const cart = await retrieveCart()
@@ -37,10 +36,10 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
         <CartButton />
       </Nav>
 
-      {customer && cart && (
-        <CartMismatchBanner customer={customer} cart={cart} />
-      )}
+      {/* --- Remove the props from CartMismatchBanner --- */}
+      {customer && cart && <CartMismatchBanner />}
 
+      {/* The component below this one correctly accepts props, so it should be fine. */}
       {cart && (
         <FreeShippingPriceNudge
           variant="popup"

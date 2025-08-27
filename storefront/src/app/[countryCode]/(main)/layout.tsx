@@ -15,7 +15,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
 }
 
-export default async function PageLayout(props: { children: React.Node }) {
+// --- Correct the type here from React.Node to React.ReactNode ---
+export default async function PageLayout(props: { children: React.ReactNode }) {
   const customer = await retrieveCustomer()
   const cart = await retrieveCart()
 
@@ -32,7 +33,6 @@ export default async function PageLayout(props: { children: React.Node }) {
 
   return (
     <>
-      {/* --- Remove the 'cart' prop from CartButton --- */}
       <Nav regions={regions}>
         <CartButton />
       </Nav>

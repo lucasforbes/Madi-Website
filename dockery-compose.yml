@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   backend:
-    image: your-dockerhub-username/madi-backend:latest
+    image: lucasforbes1313/madi-backend:latest
     restart: always
     ports:
       - "9000:9000"
@@ -10,14 +10,11 @@ services:
       - ./backend/.env
 
   storefront:
-    image: your-dockerhub-username/madi-storefront:latest
+    image: lucasforbes1313/madi-storefront:latest
     restart: always
-    # Most Next.js images expose 3000 inside the container.
-    # If your image listens on 3000, map 8000:3000 to serve on http://<EC2>:8000
     ports:
-      - "8000:3000"
+      - "80:3000"
     env_file:
-      # Match whatever your GH Action writes (I suggested .env.production)
       - ./storefront/.env.production
     depends_on:
       - backend

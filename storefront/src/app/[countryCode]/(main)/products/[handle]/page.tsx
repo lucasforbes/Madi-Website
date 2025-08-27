@@ -1,11 +1,13 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { listProducts } from "@lib/data/products"
+// --- CHANGE THE IMPORTS ---
+import { getProductByHandle, listProducts } from "@lib/data/products"
 import { getRegion, listRegions } from "@lib/data/regions"
 import ProductTemplate from "@modules/products/templates"
 
+// --- CORRECT THE PROPS TYPE ---
 type Props = {
-  params: Promise<{ countryCode: string; handle: string }>
+  params: { countryCode: string; handle: string }
 }
 
 export async function generateStaticParams() {
@@ -50,8 +52,7 @@ export async function generateStaticParams() {
   }
 }
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { handle } = params
   const region = await getRegion(params.countryCode)
 
@@ -59,10 +60,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     notFound()
   }
 
-  const product = await listProducts({
-    countryCode: params.countryCode,
-    queryParams: { handle },
-  }).then(({ response }) => response.products[0])
+  // --- REPLACE listProducts WITH getProductByHandle ---
+  const { product } = await getProductByHandle(handle).catch(() => {
+    notFound()
+  })
 
   if (!product) {
     notFound()
@@ -79,18 +80,19 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 }
 
-export default async function ProductPage(props: Props) {
-  const params = await props.params
+export default async function ProductPage({ params }: Props) {
   const region = await getRegion(params.countryCode)
 
   if (!region) {
     notFound()
   }
 
-  const pricedProduct = await listProducts({
-    countryCode: params.countryCode,
-    queryParams: { handle: params.handle },
-  }).then(({ response }) => response.products[0])
+  // --- REPLACE listProducts WITH getProductByHandle ---
+  const { product: pricedProduct } = await getProductByHandle(
+    params.handle
+  ).catch(() => {
+    notFound()
+  })
 
   if (!pricedProduct) {
     notFound()
